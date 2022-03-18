@@ -12,7 +12,7 @@ pipeline {
         SLACK_CHANNEL = "#deployment-notifications"
 
         COMPOSE_FILE = "docker-compose.yml"
-        REGISTRY_AUTH = credentials("docker-registry")
+        //REGISTRY_AUTH = credentials("docker-registry")
         STACK_PREFIX = "my-project-stack-name"
     }
 	 
