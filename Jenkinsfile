@@ -48,6 +48,7 @@ pipeline {
                         // get the current development version 
                         developmentArtifactVersion = "${pom.version}-${targetVersion}"
                         print pom.version
+                        echo "developmentArtifactVersion..... " +developmentArtifactVersion
                         // execute the unit testing and collect the reports
                         junit '**//*target/surefire-reports/TEST-*.xml'
                         archive 'target*//*.jar'
@@ -101,6 +102,7 @@ pipeline {
  	        stage('Development deploy approval and deployment') {
             steps {
                 script {
+    				echo "currentBuild..... " + currentBuild				
                     if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                         timeout(time: 3, unit: 'MINUTES') {
                             // you can use the commented line if u have specific user group who CAN ONLY approve
