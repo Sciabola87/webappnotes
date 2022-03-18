@@ -87,24 +87,25 @@ pipeline {
 //                }
 //            }
 //        }
- 	stage "Unit"
-    sh "docker-compose run --rm unit"
-    sh "docker build -t go-demo ."
-
-    stage "Staging"
-    try {
-      sh "docker-compose up -d staging-dep"
-      sh "docker-compose run --rm staging"
-    } catch(e) {
-      error "Staging failed"
-    } finally {
-      sh "docker-compose down"
+ 	stage ('Unit'){
+    	sh "docker-compose run --rm unit"
+    	sh "docker build -t go-demo ."
+	}
+    stage ('Staging'){
+    	try {
+      		sh "docker-compose up -d staging-dep"
+      		sh "docker-compose run --rm staging"
+    	} catch(e) {
+      		error "Staging failed"
+    	} finally {
+     	sh "docker-compose down"
+    	}
     }
 
-    stage "Publish"
-    sh "docker tag go-demo localhost:5000/go-demo:2.${env.BUILD_NUMBER}"
-    sh "docker push localhost:5000/go-demo:2.${env.BUILD_NUMBER}"
-    
+    stage ('Publish'){
+    	sh "docker tag go-demo localhost:5000/go-demo:2.${env.BUILD_NUMBER}"
+    	sh "docker push localhost:5000/go-demo:2.${env.BUILD_NUMBER}"
+    }
         stage('Development deploy approval and deployment') {
             steps {
                 script {
