@@ -52,6 +52,8 @@ pipeline {
                         // execute the unit testing and collect the reports
                         junit '**//*target/surefire-reports/TEST-*.xml'
                         archive 'target*//*.jar'
+                      echo "currentBuild..... " + currentBuild	  
+                       echo "the application is deploying ${jarName}"
                     }
                 }
 
