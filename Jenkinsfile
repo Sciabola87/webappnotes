@@ -7,6 +7,7 @@ pipeline {
         EMAIL_RECIPIENTS = 'momo.lari@testmyjenkins.com'
     }
 
+
     stages {
 
         stage('Build with unit testing') {
