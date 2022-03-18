@@ -30,13 +30,7 @@ pipeline {
                         // execute the unit testing and collect the reports
                         junit '**//*target/surefire-reports/TEST-*.xml'
                         archive 'target*//*.jar'
-                    } //else {
-                      //  bat(/"${mvnHome}\usr\share\maven" -Dintegration-tests.skip=true clean package/)
-                      //  def pom = readMavenPom file: 'pom.xml'
-                      //  print pom.version
-                      //  junit '**//*target/surefire-reports/TEST-*.xml'
-                      //  archive 'target*//*.jar'
-                   // }
+                    }
                 }
 
             }
@@ -49,9 +43,7 @@ pipeline {
 //                    if (isUnix()) {
 //                        // just to trigger the integration test without unit testing
 //                        sh "'${mvnHome}/usr/share/maven'  verify -Dunit-tests.skip=true"
-//                    } //else {
-//                     //   bat(/"${mvnHome}\usr\share\maven" verify -Dunit-tests.skip=true/)
-//                    //}
+//                    } 
 
 //                }
                 // cucumber reports collection
@@ -310,9 +302,7 @@ def getReleaseVersion() {
 //                        def mvnHome = tool 'Maven 3.3.9'
 //                        if (isUnix()) {
 //                            sh "'${mvnHome}/usr/share/maven'  verify -Dunit-tests.skip=true"
-//                        } //else {
-//                           // bat(/"${mvnHome}\usr\share\maven" verify -Dunit-tests.skip=true/)
-//                       // }
+//                        } 
 //
 //                    }
 //                },
