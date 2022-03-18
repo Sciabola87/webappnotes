@@ -15,7 +15,18 @@ pipeline {
         REGISTRY_AUTH = credentials("docker-registry")
         STACK_PREFIX = "my-project-stack-name"
     }
-
+	 stage('Build') {
+            agent {
+                docker {
+                    image 'gradle:6.7-jdk11'
+                    // Run the container on the node specified at the top-level of the Pipeline, in the same workspace, rather than on a new node entirely:
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'gradle --version'
+            }
+        }
 
     stages {
 
@@ -87,41 +98,7 @@ pipeline {
 //                }
 //            }
 //        }
- 	stage ('Unit'){ 
- 		steps {
-                // Run the maven build
-                script {
-    	sh "docker-compose run --rm unit"
-    	sh "docker build -t go-demo ."
-    	}
-    }
-	}
-    stage ('Staging'){
-     steps {
-                // Run the maven build
-                script {
-    	try {
-      		sh "docker-compose up -d staging-dep"
-      		sh "docker-compose run --rm staging"
-    	} catch(e) {
-      		error "Staging failed"
-    	} finally {
-     	sh "docker-compose down"
-    	}
-    	}
-    	}
-    }
-
-    stage ('Publish'){
-     steps {
-                // Run the maven build
-                script {
-    	sh "docker tag go-demo localhost:5000/go-demo:2.${env.BUILD_NUMBER}"
-    	sh "docker push localhost:5000/go-demo:2.${env.BUILD_NUMBER}"
-    	}
-    	}
-    }
-        stage('Development deploy approval and deployment') {
+ 	        stage('Development deploy approval and deployment') {
             steps {
                 script {
                     if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
