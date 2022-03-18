@@ -4,7 +4,7 @@ pipeline {
     agent any
     
     environment {
-        EMAIL_RECIPIENTS = 'momo.lari@testmyjenkins.com'
+        EMAIL_RECIPIENTS = 'sciabola87@gmail.com'
     }
 
 
