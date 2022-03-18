@@ -31,7 +31,7 @@ pipeline {
                         junit '**//*target/surefire-reports/TEST-*.xml'
                         archive 'target*//*.jar'
                     } else {
-                        bat(/"${mvnHome}\bin\mvn" -Dintegration-tests.skip=true clean package/)
+                        bat(/"${mvnHome}\usr\share\maven" -Dintegration-tests.skip=true clean package/)
                         def pom = readMavenPom file: 'pom.xml'
                         print pom.version
                         junit '**//*target/surefire-reports/TEST-*.xml'
@@ -48,9 +48,9 @@ pipeline {
 //                    def mvnHome = tool 'Maven 3.6.3'
 //                    if (isUnix()) {
 //                        // just to trigger the integration test without unit testing
-//                        sh "'${mvnHome}/bin/mvn'  verify -Dunit-tests.skip=true"
+//                        sh "'${mvnHome}/usr/share/maven'  verify -Dunit-tests.skip=true"
 //                    } else {
-//                        bat(/"${mvnHome}\bin\mvn" verify -Dunit-tests.skip=true/)
+//                        bat(/"${mvnHome}\usr\share\maven" verify -Dunit-tests.skip=true/)
 //                    }
 
 //                }
@@ -65,7 +65,7 @@ pipeline {
 //                    def mvnHome = tool 'Maven 3.6.3'
 //                    withSonarQubeEnv {
 
-//                        sh "'${mvnHome}/bin/mvn'  verify sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
+//                        sh "'${mvnHome}/usr/share/maven'  verify sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
 //                    }
 //                }
 //            }
@@ -122,7 +122,7 @@ pipeline {
                             script {
                                 def mvnHome = tool 'Maven 3.6.3'
                                 //NOTE : if u change the sanity test class name , change it here as well
-                                sh "'${mvnHome}/bin/mvn' -Dtest=ApplicationSanityCheck_ITT surefire:test"
+                                sh "'${mvnHome}/usr/share/maven' -Dtest=ApplicationSanityCheck_ITT surefire:test"
                             }
 
                         }
@@ -150,8 +150,8 @@ pipeline {
                             sh "git tag -f v${v}"
                             sh "git push -f --tags"
                         }
-                        sh "'${mvnHome}/bin/mvn' -Dmaven.test.skip=true  versions:set  -DgenerateBackupPoms=false -DnewVersion=${v}"
-                        sh "'${mvnHome}/bin/mvn' -Dmaven.test.skip=true clean deploy"
+                        sh "'${mvnHome}/usr/share/maven' -Dmaven.test.skip=true  versions:set  -DgenerateBackupPoms=false -DnewVersion=${v}"
+                        sh "'${mvnHome}/usr/share/maven' -Dmaven.test.skip=true clean deploy"
 
                     } else {
                         error "Release is not possible. as build is not successful"
@@ -205,7 +205,7 @@ pipeline {
                             script {
                                 def mvnHome = tool 'Maven 3.6.3'
                                 // NOTE : if you change the test class name change it here as well
-                                sh "'${mvnHome}/bin/mvn' -Dtest=ApplicationE2E surefire:test"
+                                sh "'${mvnHome}/usr/share/maven' -Dtest=ApplicationE2E surefire:test"
                             }
 
                         }
@@ -309,9 +309,9 @@ def getReleaseVersion() {
 //                    script {
 //                        def mvnHome = tool 'Maven 3.3.9'
 //                        if (isUnix()) {
-//                            sh "'${mvnHome}/bin/mvn'  verify -Dunit-tests.skip=true"
+//                            sh "'${mvnHome}/usr/share/maven'  verify -Dunit-tests.skip=true"
 //                        } else {
-//                            bat(/"${mvnHome}\bin\mvn" verify -Dunit-tests.skip=true/)
+//                            bat(/"${mvnHome}\usr\share\maven" verify -Dunit-tests.skip=true/)
 //                        }
 //
 //                    }
@@ -320,8 +320,8 @@ def getReleaseVersion() {
 //                    script {
 //                        def mvnHome = tool 'Maven 3.3.9'
 //                        withSonarQubeEnv {
-//                            // sh "'${mvnHome}/bin/mvn'  verify sonar:sonar -Dsonar.host.url=http://bicsjava.bc/sonar/ -Dmaven.test.failure.ignore=true"
-//                            sh "'${mvnHome}/bin/mvn'  verify sonar:sonar -Dmaven.test.failure.ignore=true"
+//                            // sh "'${mvnHome}/usr/share/maven'  verify sonar:sonar -Dsonar.host.url=http://bicsjava.bc/sonar/ -Dmaven.test.failure.ignore=true"
+//                            sh "'${mvnHome}/usr/share/maven'  verify sonar:sonar -Dmaven.test.failure.ignore=true"
 //                        }
 //                    }
 //                },
