@@ -182,29 +182,29 @@ pipeline {
                 }
             }
         }
-        stage('ACC E2E tests') {
-            when {
-                // check if branch is master
-                branch 'main'
-            }
-            steps {
-                // give some time till the deployment is done, so we wait 45 seconds
-                sleep(45)
-                script {
-                    if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
-                        timeout(time: 1, unit: 'MINUTES') {
+//        stage('ACC E2E tests') {
+//            when {
+//                // check if branch is master
+//                branch 'main'
+//            }
+//            steps {
+//                // give some time till the deployment is done, so we wait 45 seconds
+//                sleep(45)
+//                script {
+//                    if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
+//                        timeout(time: 1, unit: 'MINUTES') {
 
-                            script {
-                                def mvnHome = tool 'MAVEN3'
-                                // NOTE : if you change the test class name change it here as well
-                                sh "'${mvnHome}/bin/mvn' -Dtest=ApplicationE2E surefire:test"
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
+//                            script {
+//                                def mvnHome = tool 'MAVEN3'
+//                                // NOTE : if you change the test class name change it here as well
+//                                sh "'${mvnHome}/bin/mvn' -Dtest=ApplicationE2E surefire:test"
+//                            }
+//
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
     post {
         // Always runs. And it runs before any of the other post conditions.
