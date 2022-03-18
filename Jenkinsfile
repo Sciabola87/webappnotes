@@ -15,7 +15,9 @@ pipeline {
         REGISTRY_AUTH = credentials("docker-registry")
         STACK_PREFIX = "my-project-stack-name"
     }
-	 stage('Build') {
+	 
+    stages {
+    stage('Build') {
             agent {
                 docker {
                     image 'gradle:6.7-jdk11'
@@ -27,8 +29,7 @@ pipeline {
                 sh 'gradle --version'
             }
         }
-
-    stages {
+    
 
         stage('Build with unit testing') {
             steps {
