@@ -4,7 +4,7 @@ pipeline {
     agent any
     
     environment {
-        EMAIL_RECIPIENTS = 'momo.lari@test.com'
+        EMAIL_RECIPIENTS = 'momo.lari@testmyjenkins.com'
     }
 
     stages {
