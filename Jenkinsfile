@@ -12,6 +12,8 @@ pipeline {
         stage('Build') {
             steps {
   				mvn 'clean install -DskipTests'
-                archiveArtifacts '**/target/*.*ar'            }
+                archiveArtifacts '**/target/*.*ar'            
+        	}
         }
     }
+}
