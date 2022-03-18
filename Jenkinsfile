@@ -133,7 +133,7 @@ pipeline {
         stage('Release and publish artifact') {
             when {
                 // check if branch is master
-                branch 'master'
+                branch 'main'
             }
             steps {
                 // create the release version then create a tage with it , then push to nexus releases the released jar
@@ -162,7 +162,7 @@ pipeline {
         stage('Deploy to Acceptance') {
             when {
                 // check if branch is master
-                branch 'master'
+                branch 'main'
             }
             steps {
                 script {
@@ -193,7 +193,7 @@ pipeline {
         stage('ACC E2E tests') {
             when {
                 // check if branch is master
-                branch 'master'
+                branch 'main'
             }
             steps {
                 // give some time till the deployment is done, so we wait 45 seconds
