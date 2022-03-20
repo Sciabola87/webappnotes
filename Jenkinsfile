@@ -42,7 +42,7 @@ pipeline {
                     def mvnHome = tool 'MAVEN3'
                     if (isUnix()) {
                         def targetVersion = getDevVersion()
-                        echo "targetVersion... "+  targetVersion
+                        echo 'targetVersion... ' +  targetVersion
                         print 'target build version...'
                         print targetVersion
                         sh "'${mvnHome}/bin/mvn' -Dintegration-tests.skip=true -Dbuild.number=${targetVersion} clean package"
